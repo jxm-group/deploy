@@ -1,47 +1,53 @@
 #/usr/bin/env python
 #coding=utf-8
 
-from PyQt4.QtCore import SIGNAL, QString
+from PyQt4.QtCore import  pyqtSlot
 
-from PyQt4.QtGui import QDialog, QFileDialog
-from PyQt4.QtGui import QLineEdit,QPushButton
-from PyQt4.QtGui import QVBoxLayout,QHBoxLayout
+from PyQt4.QtGui import  QFileDialog
+from decompressionDlg import DecompressionDlg
 
-class MainWindow(QDialog):
+from deploy_qss import Deploy_Qss
+from setingDlg import SetingDlg
+
+class MainWindow(Deploy_Qss):
     def __init__(self,parent = None):
         super(MainWindow, self).__init__(parent)
+        self.__decompressdlg = DecompressionDlg()
+        self.__setingDlg    = SetingDlg()
 
-        self.__lineEditFileName = QLineEdit()
-        self.__selectFileBtn = QPushButton(self.tr("select File"))
-
-        self.__lineEditFileDir = QLineEdit()
-        self.__selectFileDirBtn = QPushButton(self.tr("select Dir"))
-
-        hboxlayout_fileName = QHBoxLayout()
-        hboxlayout_fileName.addWidget(self.__lineEditFileName)
-        hboxlayout_fileName.addWidget(self.__selectFileBtn)
-
-        hboxlayout_fileDir = QHBoxLayout()
-        hboxlayout_fileDir.addWidget(self.__lineEditFileDir)
-        hboxlayout_fileDir.addWidget(self.__selectFileDirBtn)
-
-        vboxlayout = QVBoxLayout(self)
-        vboxlayout.addLayout(hboxlayout_fileName)
-        vboxlayout.addLayout(hboxlayout_fileDir)
-
-        self.connect(self.__selectFileBtn,SIGNAL("clicked()"),self.soltFile)
-        self.connect(self.__selectFileDirBtn,SIGNAL("clicked()"),self.soltFileDir)
-
-    def soltFile(self):
+    # 选择　压缩文件
+    @pyqtSlot()
+    def on_selectFileBtn_clicked(self):
+        print "on_selectFileBtn_clicked"
         fileName = QFileDialog.getOpenFileName()
-        # print fileName
-        self.__lineEditFileName.setText(str(fileName.toAscii()))
+        self._Deploy_Qss__lineEditFileName.setText(str(fileName.toAscii()))
 
-
-    def soltFileDir(self): # 选择目录
+    # 选择　 解压目录
+    @pyqtSlot()
+    def on_selectFileDirBtn_clicked(self): # 选择目录
+        print "soltFileDir_clicked"
         fileName = QFileDialog.getExistingDirectory()
-        # print fileName
-        self.__lineEditFileDir.setText(str(fileName.toAscii()))
+        self._Deploy_Qss__lineEditFileDir.setText(str(fileName.toAscii()))
+
+    @pyqtSlot()
+    def on_setingBtn_clicked(self):
+        print "on_setingBtn_clicked"
+        self.__setingDlg.show()
+
+    @pyqtSlot()
+    def on_decBtn_clicked(self):  # 解压
+        print "on_decBtn_clicked"
+        self.__decompressdlg.show()
+        self.__decompressdlg.startDec()
+
+    @pyqtSlot()
+    def on_tftpServerStartBtn_clicked(self):
+        print "on_tftpServerStartBtn_clicked"
+
+    @pyqtSlot()
+    def on_tftpServerStopBtn_clicked(self):
+        print "on_tftpServerStopBtn_clicked"
+
 
 if __name__ ==  "__main__":
     from PyQt4.QtGui import QApplication

@@ -120,7 +120,7 @@ class DecompressionThread(QThread):
                 if self.__SHOW_LOG:
                     sleep(1)
                     # self.showLog('提取文件：[{}]'.format(name),total,i)
-                    self.showLog('decompressing files： {}'.format(name),total,i)
+                    self.showLog('decompressing file : {}'.format(name),total,i)
                 tar.extract(name, path=self.__ext_path)
             sleep(2)
             self.showLog('decompress over ! ...')
