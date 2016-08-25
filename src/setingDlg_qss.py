@@ -1,9 +1,9 @@
 #/usr/bin/env python
 #coding=utf-8
 
-from PyQt4.QtCore import SIGNAL, QString
+from PyQt4.QtCore import SIGNAL, QString, QRegExp
 
-from PyQt4.QtGui import QDialog, QFileDialog, QLabel
+from PyQt4.QtGui import QDialog, QFileDialog, QLabel, QRegExpValidator
 from PyQt4.QtGui import QLineEdit,QPushButton
 from PyQt4.QtGui import QVBoxLayout,QHBoxLayout,QGridLayout
 from PyQt4.QtCore import QMetaObject,pyqtSlot
@@ -12,23 +12,35 @@ class SetingDlg_Qss(QDialog):
     def __init__(self,parent = None):
         super(SetingDlg_Qss, self).__init__(parent)
 
+        reg = QRegExp('^((\\d|[1-9]\\d|1\\d\\d|2[0-4]\\d|25[0-5])\\.){3}(\\d|[1-9]\\d|1\\d\\d|2[0-4]\\d|25[0-4])$')
+        # reg=QRegExp('^[0-9\.]{0,15}$')
+        validator = QRegExpValidator(reg)
+
+
         self.__labelDhcpServerIp = QLabel(self.tr("DHCP_SERVER_IP"))
         self.lineEditDhcpServerIp = QLineEdit()
+        self.lineEditDhcpServerIp.setValidator(validator)
 
         self.__labelDhcpOfferBegin = QLabel(self.tr("DHCP_OFFER_BEGIN"))
         self.lineEditDhcpOfferBegin = QLineEdit()
+        self.lineEditDhcpOfferBegin.setValidator(validator)
+
 
         self.__labelDhcpOfferEnd = QLabel(self.tr("DHCP_OFFER_END"))
         self.lineEditDhcpOfferEnd = QLineEdit()
+        self.lineEditDhcpOfferEnd.setValidator(validator)
 
         self.__labelDhcpSubnet = QLabel(self.tr("DHCP_SUBNET"))
         self.lineEditDhcpSubnet = QLineEdit()
+        self.lineEditDhcpSubnet.setValidator(validator)
 
         self.__labelDhcpRouter = QLabel(self.tr("DHCP_ROUTER"))
         self.lineEditDhcpRouter = QLineEdit()
+        self.lineEditDhcpRouter.setValidator(validator)
 
         self.__labelDhcpDns = QLabel(self.tr("DHCP_DNS"))
         self.lineEditDhcpDns = QLineEdit()
+        self.lineEditDhcpDns.setValidator(validator)
 
         gridLayout = QGridLayout()
         lableCol = 0

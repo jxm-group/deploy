@@ -32,7 +32,7 @@ class CompressionThread(QThread):
         path ='c:\\testTar\\hongten.tar'   目标
         content = [fileName01,fileName02,dir01,dir02]  要压缩的文件, 当前目录
         '''
-        with tarfile.open(path, 'w') as tar:
+        with tarfile.open(path,"w:gz") as tar:
             if self.__SHOW_LOG:
                 print('打开文件:[{}]'.format(path))
             for n in content:
@@ -100,7 +100,7 @@ class DecompressionThread(QThread):
             message = "Sorry,  %s: file type error" % self.__tar_path
             raise Exception(message)
 
-        with tarfile.open(self.__tar_path) as tar:
+        with tarfile.open(self.__tar_path,"r:gz") as tar:
             if self.__SHOW_LOG:
                 self.showLog('open file:{}'.format(self.__tar_path))
             names = tar.getnames()

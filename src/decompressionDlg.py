@@ -44,11 +44,11 @@ class DecompressionDlg(QDialog):
             os.makedirs(EXT_PATH)
         except Exception:
             pass
-
-        #  压缩,测试
-        self.__compressionThread = CompressionThread(TAR_PATH)
-        self.__compressionThread.start()
-        self.__compressionThread.wait()
+        #
+        # #  压缩,测试
+        # self.__compressionThread = CompressionThread(TAR_PATH)
+        # self.__compressionThread.start()
+        # self.__compressionThread.wait()
 
         ## 解压
         self.__decompressionThread = DecompressionThread(TAR_PATH,EXT_PATH)
